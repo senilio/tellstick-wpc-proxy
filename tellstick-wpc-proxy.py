@@ -34,8 +34,9 @@ class get_wpc:
 
         # Submit new value and return modified JSON
         jsonvar['data'][0]['name'] = 'blinks'
+        jsonvar['data'][1]['name'] = 'multiplier'
         jsonvar['data'][0]['value'] = counts
-        return jsonvar
+        return json.dumps(jsonvar, indent=4, sort_keys=True)
 
 if __name__ == "__main__":
     app.run()
