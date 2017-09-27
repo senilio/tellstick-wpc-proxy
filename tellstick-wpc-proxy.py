@@ -17,7 +17,8 @@ url = 'http://192.168.88.17/api/sensor/info?id=9'
 # Tellstick API key
 api_key = 'Bearer bloody_long_key'
 
-# Electric meter blinkfactor
+# Electric meter blink factor
+# blinkFactor is 1000 divided by the Electric meter parameter.
 # Usually 1000 or 10000 impulses per kWh
 blinkFactor = 1000.0/10000.0
 
@@ -30,7 +31,7 @@ commands = ('/get_wpc', 'get_wpc')
 app = web.application(commands, globals())
 
 # How often in seconds are you polling for new data?
-# This is used to calculate momentary usage.
+# This is used to properly calculate momentary power usage [Watt].
 poll_frequency = 12
 
 # Init variables
@@ -60,7 +61,7 @@ class get_wpc:
         else:
             count = multiplier*4096 - 10*current_value + 2048
 
-        # Fix skewed first poll
+        # Fix for messed up first poll
         if prev_count == 0:
             prev_count = count
         if prev_time == 0:
